@@ -41,6 +41,10 @@ ENV ROOT=/stable-diffusion-webui
 
 COPY --from=download /repositories/ ${ROOT}/repositories/
 RUN mkdir ${ROOT}/interrogate && cp ${ROOT}/repositories/clip-interrogator/clip_interrogator/data/* ${ROOT}/interrogate
+
+RUN  --mount=type=cache,target=/root/.cache/pip pip install psutil==5.9.0
+RUN  --mount=type=cache,target=/root/.cache/pip pip install torch torchvision torchaudio numpy --upgrade --ignore-installed
+
 RUN --mount=type=cache,target=/root/.cache/pip \
   pip install -r ${ROOT}/repositories/CodeFormer/requirements.txt
 
