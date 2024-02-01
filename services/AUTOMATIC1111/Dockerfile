@@ -34,6 +34,9 @@ RUN --mount=type=cache,target=/root/.cache/pip \
   git reset --hard cf2772fab0af5573da775e7437e6acdca424f26e && \
   pip install -r requirements_versions.txt
 
+  # add library for conrol net extension
+  pip install insightface
+
 
 ENV ROOT=/stable-diffusion-webui
 
