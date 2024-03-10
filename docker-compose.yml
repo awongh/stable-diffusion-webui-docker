@@ -34,7 +34,7 @@ services:
     build: ./services/AUTOMATIC1111
     image: sd-auto:71
     environment:
-      - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api
+      - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api --api-log --listen --loglevel info --timeout-keep-alive 1800 --port 80
 
   auto-cpu:
     <<: *automatic
