@@ -32,7 +32,7 @@ services:
     <<: *base_service
     profiles: ["auto"]
     build: ./services/AUTOMATIC1111
-    image: sd-auto:71
+    image: sd-auto:72
     environment:
       - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api --api-log --listen --loglevel info --timeout-keep-alive 1800 --port 80
 
