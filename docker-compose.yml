@@ -8,9 +8,6 @@ x-base_service: &base_service
       - &v2 ./output:/output
     stop_signal: SIGKILL
     tty: true
-    environment:
-      - VIRTUAL_HOST=api-test.erosreve.com
-      - LETSENCRYPT_HOST=api-test.erosreve.com
     deploy:
       resources:
         reservations:
@@ -75,29 +72,6 @@ services:
     environment:
       - CLI_ARGS=--cpu
 
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    container_name: nginx-proxy
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - certs:/etc/nginx/certs
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-
-  nginx-proxy-acme:
-    image: nginxproxy/acme-companion
-    container_name: acme-companion
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - acme:/etc/acme.sh
-    volumes_from:
-      - nginx-proxy
-    environment:
-      - NGINX_PROXY_CONTAINER=nginx-proxy
-      - DEFAULT_EMAIL=mail@erosrever.com
 volumes:
   certs:
   vhost:
