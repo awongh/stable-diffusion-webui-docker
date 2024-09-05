@@ -29,7 +29,8 @@ services:
     build: ./services/AUTOMATIC1111
     image: sd-auto:78
     environment:
-      - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api --api-log --listen --loglevel info --timeout-keep-alive 1800 --port 80
+      - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api --api-log --listen --loglevel info --timeout-keep-alive 1800 --port 80 --api-auth "${API_AUTH_STR}" --gradio-auth-path /data/models/gradio-auth
+
 
   auto-cpu:
     <<: *automatic
