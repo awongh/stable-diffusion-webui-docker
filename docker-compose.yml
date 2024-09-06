@@ -1,6 +1,6 @@
 x-base_service: &base_service
     ports:
-      - "${WEBUI_PORT:-7860}:7860"
+      - "${WEBUI_PORT:-7860}:80"
     volumes:
       - &v1 ./data:/data
       - &v2 ./output:/output
@@ -17,6 +17,13 @@ x-base_service: &base_service
 name: webui-docker
 
 services:
+  web:
+    image: nginx
+    volumes:
+      - ./output:/usr/share/nginx/html  # Mount the shared named volume for serving files
+    ports:
+      - "4938:80"
+
   download:
     build: ./services/download/
     profiles: ["download"]
@@ -29,7 +36,7 @@ services:
     build: ./services/AUTOMATIC1111
     image: sd-auto:78
     environment:
-      - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api --api-log --listen --loglevel info --timeout-keep-alive 1800 --port 80 --api-auth "${API_AUTH_STR}" --gradio-auth-path /data/models/gradio-auth
+      - CLI_ARGS=--allow-code --medvram --xformers --enable-insecure-extension-access --api --api-log --listen --loglevel info --timeout-keep-alive 1800 --port 80 --api-auth ${API_AUTH_STR} --gradio-auth-path /data/models/gradio-auth
 
 
   auto-cpu:

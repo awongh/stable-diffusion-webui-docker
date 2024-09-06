@@ -30,10 +30,10 @@ WORKDIR /
 RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
   cd stable-diffusion-webui && \
-  git reset --hard v1.9.4 && \
-  pip install -r requirements_versions.txt
-  # add library for conrol net extension
-  pip install insightface
+  git reset --hard v1.10.1 && \
+  pip install -r requirements_versions.txt && \
+  pip install --force-reinstall typing_extensions && \
+  pip install insightface # add library for conrol net extension
 
 
 ENV ROOT=/stable-diffusion-webui
